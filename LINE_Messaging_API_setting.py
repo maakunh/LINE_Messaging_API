@@ -19,11 +19,11 @@ class LINE_Messaging_API:
         self.lvError = 1
 
         #This database is used in this code. Change parameter for your environment.
-        self.line_messaga_db_path = r'\\DESKTOP-2322PPH\Users\Public\line_message\linemessage.db'
+        self.line_message_db_path = r'\\DESKTOP-2322PPH\Users\Public\epever\line_message\linemessage.db'
 
         #these parameter is secret. DO NOT present to the public!!!
-        self.CHANNEL_ACCESS_TOKEN = "Bearer {}"
-        self.USER_ID = ""
+        self.CHANNEL_ACCESS_TOKEN = "Bearer {your token}"
+        self.USER_ID = "your user id"
 
         #LINE Messaging API urls
         ##Push Message(POST)

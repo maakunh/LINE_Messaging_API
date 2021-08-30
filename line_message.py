@@ -85,7 +85,7 @@ class line_message_useAPI:
         self.update_flg_linemsg_off = 9 #sent
         self.update_flg_linemsg_ignore = 99 #ignore
 
-    def postmessage(self):
+    def post_message(self):
         #LINE Messaging API
         cls_Line_Messaging_API_setting = LINE_Messaging_API_setting.LINE_Messaging_API()
 
@@ -93,22 +93,15 @@ class line_message_useAPI:
         cls_db = line_message_db()
 
         #Get unsend list
-        ret = cls_db.read_line_message_get_unsend_list(cls_Line_Messaging_API_setting.line_messaga_db_path, cls_db.update_flg_linemsg_on)
+        ret = cls_db.read_line_message_get_unsend_list(cls_Line_Messaging_API_setting.line_message_db_path, cls_db.update_flg_linemsg_on)
         if ret == cls_db.lvNormal:
             ret = self.lvNormal
             unsend_list = cls_db.linemsg_send_list
-            print(unsend_list)
             dt_now = datetime.datetime.now()
             for unsend in unsend_list:
-                print (unsend[0])
-                print (unsend[1])
-                print (unsend[2])
-                print (unsend[3])
-                print (unsend[4])
-                print (unsend[5])
                 ret = cls_Line_Messaging_API_setting.post_messages(unsend[1]  + '\r\n' + " request date : " + unsend[2]+ '\r\n' + " application : " + unsend[5])
                 if ret == cls_Line_Messaging_API_setting.lvNormal:
-                    ret = cls_db.update_line_message_flg(cls_Line_Messaging_API_setting.line_messaga_db_path, self.update_flg_linemsg_off, dt_now.strftime('%Y/%m/%d %H:%M:%S'), unsend[4])
+                    ret = cls_db.update_line_message_flg(cls_Line_Messaging_API_setting.line_message_db_path, self.update_flg_linemsg_off, dt_now.strftime('%Y/%m/%d %H:%M:%S'), unsend[4])
                     if ret == cls_db.lvError:
                         self.ret = self.lvError
         elif ret == cls_db.lvError:
@@ -123,9 +116,9 @@ class line_message_useAPI:
         #database
         cls_db = line_message_db()
         dt_now = datetime.datetime.now()
-        ret = cls_db.read_line_message_maxnumber(cls_Line_Messaging_API_setting.line_messaga_db_path)
+        ret = cls_db.read_line_message_maxnumber(cls_Line_Messaging_API_setting.line_message_db_path)
         if ret == cls_db.lvNormal:
-            ret = cls_db.write_line_message_request(cls_Line_Messaging_API_setting.line_messaga_db_path, self.update_flg_linemsg_on, dt_now.strftime('%Y/%m/%d %H:%M:%S'), dt_now.strftime('%Y/%m/%d %H:%M:%S'), msg, cls_db.line_message_maxnumber + 1, application)
+            ret = cls_db.write_line_message_request(cls_Line_Messaging_API_setting.line_message_db_path, self.update_flg_linemsg_on, dt_now.strftime('%Y/%m/%d %H:%M:%S'), dt_now.strftime('%Y/%m/%d %H:%M:%S'), msg, cls_db.line_message_maxnumber + 1, application)
             if ret == cls_db.lvNormal:
                 ret = self.lvNormal
             elif ret == cls_db.lvError:
@@ -146,15 +139,22 @@ def Test():
     print("send message request")
     cls_useAPI = line_message_useAPI()
     cls_db = line_message_db()
-    cls_db.read_line_message_maxnumber(cls_LINE_Messaging_API.line_messaga_db_path)
+    cls_db.read_line_message_maxnumber(cls_LINE_Messaging_API.line_message_db_path)
     print(cls_db.line_message_maxnumber)
     ret = cls_useAPI.line_message_request("test","TESTApp")
     print(ret)
 
     #post message
     print("post message for above request")
-    cls_useAPI.postmessage()
+    cls_useAPI.post_message()
 
+
+#Main
+def Main():
+    cls_useAPI = line_message_useAPI()
+    #post message
+    cls_useAPI.post_message()
 
 if __name__ == '__main__':
-    Test()
+    # Test()
+    Main()
