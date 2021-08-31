@@ -19,7 +19,7 @@ class LINE_Messaging_API:
         self.lvError = 1
 
         #This database is used in this code. Change parameter for your environment.
-        self.line_message_db_path = r'\\DESKTOP-2322PPH\Users\Public\epever\line_message\linemessage.db'
+        self.line_message_db_path = r'.\linemessage.db'
 
         #these parameter is secret. DO NOT present to the public!!!
         self.CHANNEL_ACCESS_TOKEN = "Bearer {your token}"
@@ -34,6 +34,9 @@ class LINE_Messaging_API:
 
 
     def post_messages(self, send_message):
+        print("This parameters set")
+        print("CHANNEL_ACCESS_TOKEN: " + self.CHANNEL_ACCESS_TOKEN)
+        print("USER_ID" + self.USER_ID)
         send_data = {"to": self.USER_ID, "messages": [{"type": "text", "text": send_message}]}
         jsonstr = json.dumps(send_data).encode()
         #post to LINE Messageing API
