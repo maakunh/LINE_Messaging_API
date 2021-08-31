@@ -7,6 +7,17 @@ CREATE TABLE IF NOT EXISTS "line_message" (
 	"number"	INTEGER,
 	"application"	TEXT
 );
-INSERT INTO "line_message" VALUES ('9','test','1970/01/01 00:00:00','1970/01/01 00:00:00',0,'TESTApp');
-INSERT INTO "line_message" VALUES ('9','test','2021/08/30 12:06:59','2021/08/30 12:06:59',1,'TESTApp');
+CREATE TABLE IF NOT EXISTS "line_flg" (
+	"no"	INTEGER,
+	"on"	INTEGER,
+	"off"	INTEGER,
+	"ignore"	INTEGER
+);
+CREATE TABLE IF NOT EXISTS "line_secret" (
+	"application"	TEXT NOT NULL,
+	"CHANNEL_ACCESS_TOKEN"	TEXT NOT NULL,
+	"USER_ID"	TEXT NOT NULL,
+	"enable"	INTEGER,
+	PRIMARY KEY("application")
+);
 COMMIT;
