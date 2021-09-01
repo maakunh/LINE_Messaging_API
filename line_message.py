@@ -7,6 +7,9 @@
 #For detail, reffer to LINE Developers Docs
 ##https://developers.line.biz/en/docs/
 
+#This code has rule related to return codes.
+#<br> -> \r\n
+#This rule effect in parameter of LINE message.
 
 import LINE_Messaging_API_setting
 import datetime
@@ -208,7 +211,7 @@ def main():
         cls_useAPI = line_message_useAPI()
         if sys.argv[1] == "r":
             cls_useAPI.line_message_db_path = sys.argv[2]
-            cls_useAPI.msg = sys.argv[3]
+            cls_useAPI.msg = sys.argv[3].replace('<br>','\r\n') #original rule related to return codes. <br> -> \r\n
             cls_useAPI.application = sys.argv[4]
             ret = cls_useAPI.line_message_request()
             if ret == cls_useAPI.lvNormal:
