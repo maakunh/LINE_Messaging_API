@@ -20,9 +20,4 @@ CREATE TABLE IF NOT EXISTS "line_secret" (
 	"enable"	INTEGER,
 	PRIMARY KEY("application")
 );
-
-INSERT INTO "line_message" VALUES ('9','test','1970/01/01 00:00:00','1970/01/01 00:00:00',0,'TESTApp');
-INSERT INTO "line_flg" VALUES (1,2,9,99);
-INSERT INTO "line_secret" VALUES ('TESTApp','YourChannelAccessToken','YourUserId','1');
-
 COMMIT;
